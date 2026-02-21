@@ -142,6 +142,8 @@
         // This function sends user data to MySQL
         async function signupUser(userData){
             try{
+                // Clear any old localStorage data from previous versions
+                localStorage.removeItem('currentUser');
                 // Make POST request to FastAPI endpoint
                 const response = await fetch(`${API_BASE_URL}/signup`, 
                     {
@@ -190,6 +192,8 @@
         // Login function (Authenticates user)
         async function loginUser(userData){
             try{
+                // Clear any old localStorage data from previous versions
+                localStorage.removeItem('currentUser');
                 const response = await fetch(`${API_BASE_URL}/login`, 
                     {
                         method: 'POST',
