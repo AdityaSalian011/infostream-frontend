@@ -157,21 +157,14 @@
                 const result = await response.json()
 
                 if (response.ok){
-                    console.log('✓ User registered successfully:', result)
+                    
 
                     // Store user data in localStorage (without password)
                     try{
-                        const userToStore = {
-                            id: result.id,
-                            firstName: result.firstName,
-                            lastName: result.lastName,
-                            fullName: result.fullName,
-                            email: result.email
-                        }
-    
-                        localStorage.setItem('currentUser', JSON.stringify(userToStore))
+                        sessionStorage.setItem('token', result.access_token)
+                        
                     } catch(error){
-                        console.error('Error saving to localStorage:', error)
+                        
                         // Continue anyway - user is registered in database
                         alert('Account created successfully! (Note: Session storage unavailable)')
                     }
@@ -183,14 +176,14 @@
                     window.location.href = 'user-settings.html'
                 }else{
                     // Handle error (e.g., email already exists)
-                    console.error('✗ Signup failed:', result.detail);
+                    
                     alert(result.detail || 'Signup failed. Please try again.');
                 }
     
             } catch (error){
                 // Handle network errors
-                console.error('✗ Error during signup:', error);
-                alert('Could not connect to server. Make sure the backend is running.\nRun: python main.py');
+                
+                alert('Could not connect to server. Please try again later.');
             }
         }
 
@@ -211,14 +204,16 @@
 
                 // Check if login was successful
                 if (response.ok) {
-                    console.log('✓ Login successful:', result);
+                    
                     
                     // Store user data in localStorage
                     try{
-                        localStorage.setItem('currentUser', JSON.stringify(result.user));
+                        sessionStorage.setItem('token', result.access_token)
+                        
                     }catch(error){
-                        console.error('Error saving to localStorage:', error)
+                        
                         alert('Login successful! (Note: Session storage unavailable, you may need to login again later)')
+                        return;
                     }
                     
                     // Show success message
@@ -228,22 +223,54 @@
                     // SMART ROUTING: Redirect based on profile completion
                     // ============================================
                     // The backend tells us where to go based on what the user has completed
-                    const redirectUrl = result.redirect_url || 'user-settings.html'
-
-                    // Log where we're redirecting for debugging
-                    console.log('Redirecting to:', redirectUrl);
-
-                    window.location.href = redirectUrl;
+                    await redirectUserBasedOnProfile()
                 }else {
                     // Handle error (e.g., wrong password)
-                    console.error('✗ Login failed:', result.detail);
+                    
                     alert(result.detail || 'Invalid email or password');
                 }
 
             } catch (error) {
                 // Handle network errors
-                console.error('✗ Error during login:', error);
-                alert('Could not connect to server. Make sure the backend is running.\nRun: python main.py');
+                
+                alert('Could not connect to server. Please try again later.');
+            }
+        }
+
+        async function redirectUserBasedOnProfile(){
+            const token = sessionStorage.getItem('token')
+
+            if(!token){
+                alert('No authentication token found. PLease login again!')
+                return
+            }
+
+            try{
+                // Call backend endpoint with JWT token
+                const response = await fetch(
+                    `${API_BASE_URL}/user/redirect`,
+                    {
+                        headers:{
+                            'Authorization': `Bearer ${token}`  // Send token in authorization header
+                        }
+                    }
+                )
+                const result = await response.json()
+
+                if (response.ok){
+                    
+
+                    window.location.href = result.redirect_url
+                }else{
+                    // Token might be invalid or expired
+                    
+                    sessionStorage.removeItem('token')
+                    alert(result.detail || 'Session expired. PLease login again.')
+                    window.location.href = 'index.html'
+                }
+            }catch(error){
+                
+                alert('Could not connect to server. Please try again later.')
             }
         }
 
@@ -284,20 +311,10 @@
             e.preventDefault(); // Prevent default form submission
             
             // FETCHING USER DATA FROM SIGN UP FORM
-            // Access form data using various methods:
-            
-            // Method 1: Direct element access by ID
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
-            
-            // Method 2: Using FormData API (recommended for larger forms)
-            // const formData = new FormData(signupForm);
-            // const firstName = formData.get('firstName');
-            // const lastName = formData.get('lastName');
-            // const email = formData.get('email');
-            // const password = formData.get('password');
             
             // Create user object with collected data
             const userData = {
@@ -307,18 +324,6 @@
                 email: email,
                 password: password
             };
-            
-            // Display collected data in console (for testing purposes)
-            console.log('Sign Up Data:', userData);
-            
-            // TODO: Send this data to your backend/database
-            // Example: 
-            // fetch('/api/signup', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(userData)
-            // });
-
             // call signup function to save to MySQL
             await signupUser(userData)
         });
@@ -336,18 +341,6 @@
                 email: email,
                 password: password
             };
-            
-            // Display collected data in console (for testing purposes)
-            console.log('Login Data:', loginData);
-            
-            // TODO: Verify credentials with your backend
-            // Example:
-            // fetch('/api/login', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(loginData)
-            // });
-            
             // Call login function to authenticate with MySQL
             await loginUser(loginData)
         });

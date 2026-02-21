@@ -144,14 +144,30 @@
     </div>
     <script src="config.js"></script>
     <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                alert('Please login first');
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+
         // Save preferences to backend
-        async function savePreferences(preferenceData, currentUser) {
+        async function savePreferences(preferenceData) {
             try {
+                const token = sessionStorage.getItem('token')
+
                 const response = await fetch(
-                    `${API_BASE_URL}/news-preferences/${currentUser.id}`,
+                    `${API_BASE_URL}/news/preferences`,
                     {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
                         body: JSON.stringify(preferenceData)
                     }
                 );
@@ -159,17 +175,16 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    console.log('✓ Preferences saved:', result);
+                    
 
                     alert('Setup complete! Redirecting to your dashboard...');
                     window.location.href = 'news-summary.html';
                 } else {
-                    console.error('✗ Failed to save preferences:', result.detail);
                     alert(result.detail || 'Failed to save preferences. Please try again.');
                 }
             } catch (error) {
-                console.error('✗ Error saving preferences:', error);
-                alert('Could not connect to server. Make sure the backend is running.\nRun: python main.py');
+                
+                alert('Could not connect to server. Please try again later.');
             }
         }
 
@@ -279,23 +294,6 @@
                 return;
             }
 
-            // Get user from localStorage
-            let currentUser;
-            try {
-                currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            } catch (error) {
-                console.error('Error accessing localStorage:', error);
-                alert('Error accessing user session. Please login again!');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            if (!currentUser || !currentUser.id) {
-                alert('Session expired. Please login again!');
-                window.location.href = 'login.html';
-                return;
-            }
-
             // Determine final topic
             const finalTopic = newsTopic === 'other' ? customTopic : newsTopic;
             const isImmediate = currentSelectedTime === 'now';
@@ -309,9 +307,11 @@
                 isScheduled: !isImmediate
             };
 
-            console.log('Submitting preferences:', preferenceData);
-
-            await savePreferences(preferenceData, currentUser);
+            
+            
+            if (checkAuth()){
+                await savePreferences(preferenceData);
+            }
         });
     </script>
 

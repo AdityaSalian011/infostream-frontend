@@ -114,14 +114,29 @@
     </div>
     <script src="config.js"></script>
     <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                alert('Please login first');
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+
         // Save settings to backend
-        async function saveSettings(settingsData, currentUser) {
+        async function saveSettings(settingsData) {
             try {
+                const token = sessionStorage.getItem('token')
                 const response = await fetch(
-                    `${API_BASE_URL}/settings/${currentUser.id}`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                    `${API_BASE_URL}/user/setting`,
+                    {   method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                            // Send token in authorization header
+                        },
                         body: JSON.stringify(settingsData)
                     }
                 );
@@ -129,54 +144,23 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    console.log('✓ Settings saved:', result);
+                    
 
-                    // Update localStorage with settings info
-                    try {
-                        const updatedUser = {
-                            ...currentUser,
-                            settings: {
-                                country: result.country,
-                                city: result.city
-                            }
-                        };
-                        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-                    } catch (error) {
-                        console.error('Error updating localStorage:', error);
-                    }
-
-                    alert('Settings saved successfully!');
+                    alert(result.success_message || 'Settings saved successfully!');
                     window.location.href = 'topic-and-schedule.html';
                 } else {
-                    console.error('✗ Failed to save settings:', result.detail);
+                    
                     alert(result.detail || 'Failed to save settings. Please try again.');
                 }
             } catch (error) {
-                console.error('✗ Error saving settings:', error);
-                alert('Could not connect to server. Make sure the backend is running.\nRun: python main.py');
+                
+                alert('Could not connect to server. Please try again later.');
             }
         }
 
         // Handle form submission
         document.getElementById('settingsForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            // Get user from localStorage
-            let currentUser;
-            try {
-                currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            } catch (error) {
-                console.error('Error accessing localStorage:', error);
-                alert('Error accessing user session. Please login again!');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            if (!currentUser || !currentUser.id) {
-                alert('Session expired. Please login again!');
-                window.location.href = 'login.html';
-                return;
-            }
 
             // Collect form data
             const country = document.getElementById('country').value.trim();
@@ -191,9 +175,11 @@
                 weatherApi: weatherApiKey || null
             };
 
-            console.log('Submitting settings:', settingsData);
-
-            await saveSettings(settingsData, currentUser);
+            
+            
+            if (checkAuth()){
+                await saveSettings(settingsData);
+            }
         });
     </script>
 

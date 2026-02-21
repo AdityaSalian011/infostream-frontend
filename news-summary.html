@@ -17,16 +17,24 @@
                     <h1 class="text-3xl font-bold text-gray-800 mb-2">Your News Dashboard</h1>
                     <p class="text-gray-600">Manage your personalized news preferences</p>
                 </div>
-                <button 
-                    id="settingsBtn"
-                    class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-all flex items-center gap-2"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    Settings
-                </button>
+                <div class="flex gap-3">
+                    <button 
+                        id="settingsBtn"
+                        class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-all flex items-center gap-2"
+                    >
+                        ⚙️ Settings
+                    </button>
+                    <button 
+                        id="logoutBtn"
+                        class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-all"
+                    >
+                        Logout
+                    </button>
+                </div>
+            </div>
+            <div class="flex mt-3 gap-2">
+                <p class="text-gray font-semibold">Check your inbox at</p>
+                <a href="https://mail.google.com/mail" target="_blank" class="text-blue-900 font-bold underline">Gmail.com</a>
             </div>
         </div>
 
@@ -38,14 +46,10 @@
                     id="addNewBtn"
                     class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-all flex items-center gap-2"
                 >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Add New
+                    ➕ Add New
                 </button>
             </div>
 
-            <!-- Preferences will be loaded here -->
             <div id="preferencesList" class="space-y-4">
                 <p class="text-gray-500 text-center py-8">Loading your preferences...</p>
             </div>
@@ -53,61 +57,53 @@
 
     </div>
 
-    <!-- Add/Edit Preference Modal -->
-    <div id="preferenceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <!-- Add/Edit Modal -->
+    <div id="preferenceModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 id="modalTitle" class="text-2xl font-bold text-gray-800">Add New Preference</h2>
-                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
             </div>
 
             <form id="preferenceForm" class="space-y-6">
-                <!-- News Topic Section -->
+                <input type="hidden" id="editingPreferenceId">
+
+                <!-- News Topic -->
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">News Topic</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="general">General</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="business">Business</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="entertainment">Entertainment</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="health">Health</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="science">Science</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="sports">Sports</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="technology">Technology</button>
-                        <button type="button" class="modal-topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-700 transition-all" data-topic="other">Other</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="general">General</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="business">Business</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="entertainment">Entertainment</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="health">Health</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="science">Science</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="sports">Sports</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="technology">Technology</button>
+                        <button type="button" class="topic-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-topic="other">Other</button>
                     </div>
-                    <input type="hidden" id="modalSelectedTopic" required>
-                    <div id="modalCustomTopicContainer" class="hidden mt-3">
-                        <input type="text" id="modalCustomTopic" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none" placeholder="Enter custom topic">
+                    <input type="hidden" id="selectedTopic" required>
+                    <div id="customTopicContainer" class="hidden mt-3">
+                        <input type="text" id="customTopic" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none" placeholder="Enter custom topic">
                     </div>
                 </div>
 
-                <!-- Delivery Time Section -->
+                <!-- Delivery Time -->
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">Delivery Time</h3>
                     <div class="space-y-3">
-                        <button type="button" class="modal-time-btn w-full px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all text-left flex items-center gap-2" data-time="now">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                            Send Now
-                        </button>
+                        <button type="button" class="time-btn w-full px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all text-left" data-time="now">⚡ Send Now</button>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                            <button type="button" class="modal-time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="11:00 AM">11:00 AM</button>
-                            <button type="button" class="modal-time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="02:00 PM">02:00 PM</button>
-                            <button type="button" class="modal-time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="05:00 PM">05:00 PM</button>
-                            <button type="button" class="modal-time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="07:00 PM">07:00 PM</button>
-                            <button type="button" class="modal-time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="09:00 PM">09:00 PM</button>
-                            <button type="button" class="modal-time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="11:00 PM">11:00 PM</button>
+                            <button type="button" class="time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="11:00">11:00 AM</button>
+                            <button type="button" class="time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="14:00">02:00 PM</button>
+                            <button type="button" class="time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="17:00">05:00 PM</button>
+                            <button type="button" class="time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="19:00">07:00 PM</button>
+                            <button type="button" class="time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="21:00">09:00 PM</button>
+                            <button type="button" class="time-btn px-4 py-3 border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="23:00">11:00 PM</button>
                         </div>
                     </div>
-                    <input type="hidden" id="modalSelectedTime" required>
+                    <input type="hidden" id="selectedTime" required>
                 </div>
 
-                <!-- Submit Button -->
                 <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-all">
                     Save Preference
                 </button>
@@ -116,239 +112,331 @@
     </div>
 
     <!-- Settings Modal -->
-    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <div id="settingsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Account Settings</h2>
-                <button id="closeSettingsModal" class="text-gray-500 hover:text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
+                <button id="closeSettingsModal" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
             </div>
 
             <form id="settingsForm" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
-                    <input type="text" id="settingsCountry" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none" placeholder="e.g., USA">
+                    <input type="text" id="settingsCountry" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
-                    <input type="text" id="settingsCity" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none" placeholder="e.g., New York">
+                    <input type="text" id="settingsCity" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">News API Key</label>
-                    <input type="text" id="settingsNewsApiKey" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none font-mono text-sm" placeholder="Optional">
+                    <input type="text" id="settingsNewsApiKey" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none font-mono text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Weather API Key</label>
-                    <input type="text" id="settingsWeatherApiKey" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none font-mono text-sm" placeholder="Optional">
+                    <input type="text" id="settingsWeatherApiKey" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none font-mono text-sm">
                 </div>
                 <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-all">
-                    Save Settings
+                    Update Settings
                 </button>
             </form>
         </div>
     </div>
+
     <script src="config.js"></script>
     <script>
-        let currentUser = null;
-        let currentEditingId = null;
-
-        // Get current user
-        try {
-            currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (!currentUser || !currentUser.id) {
-                alert('Please login first!');
-                window.location.href = 'login.html';
+        // Check if user is logged in
+        function checkAuth() {
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                alert('Please login first');
+                window.location.href = 'index.html';
+                return false;
             }
-        } catch (error) {
-            console.error('Error loading user:', error);
-            window.location.href = 'login.html';
+            return true;
         }
 
-        // Load user preferences
+        // Load all preferences
         async function loadPreferences() {
+            const token = sessionStorage.getItem('token');
+            
             try {
-                const response = await fetch(`${API_BASE_URL}/news-preferences/${currentUser.id}`);
-                const data = await response.json();
+                const response = await fetch(`${API_BASE_URL}/news/preferences`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
-                const preferencesList = document.getElementById('preferencesList');
+                const result = await response.json();
 
-                if (!data.preferences || data.preferences.length === 0) {
-                    preferencesList.innerHTML = `
-                        <div class="text-center py-12">
-                            <p class="text-gray-500 mb-4">No preferences found. Create your first one!</p>
-                            <button onclick="document.getElementById('addNewBtn').click()" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
-                                Add Your First Preference
-                            </button>
-                        </div>
-                    `;
-                    return;
+                if (response.ok) {
+                    displayPreferences(result.preferences || []);
+                } else {
+                    if (response.status === 401) {
+                        alert('Session expired. Please login again.');
+                        sessionStorage.removeItem('token');
+                        window.location.href = 'index.html';
+                    } else {
+                        alert(result.detail || 'Failed to load preferences');
+                    }
                 }
+            } catch (error) {
+                
+                alert('Could not connect to server');
+            }
+        }
 
-                // Render preferences
-                preferencesList.innerHTML = data.preferences.map(pref => `
-                    <div class="border-2 border-gray-200 rounded-lg p-6 hover:border-orange-300 transition-all">
-                        <div class="flex justify-between items-start">
-                            <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${pref.newsTopic}</h3>
-                                <div class="space-y-1 text-sm text-gray-600">
-                                    <p class="flex items-center gap-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                        ${pref.isImmediate ? 'Immediate delivery' : `Daily at ${pref.deliveryTime}`}
-                                    </p>
-                                    ${pref.isCustomTopic ? '<p class="text-orange-600">Custom Topic</p>' : ''}
-                                </div>
+        // Display preferences
+        function displayPreferences(preferences) {
+            const container = document.getElementById('preferencesList');
+            
+            if (preferences.length === 0) {
+                container.innerHTML = '<div class="text-center py-12 text-gray-500"><p class="text-lg">No preferences found</p><p class="text-sm mt-2">Click "Add New" to create your first preference</p></div>';
+                return;
+            }
+
+            container.innerHTML = preferences.map(pref => `
+                <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">📰 ${pref.newsTopic}</h3>
+                            <p class="text-gray-600 mb-2">🕐 Delivery: ${pref.deliveryTime}</p>
+                            <div class="flex gap-2 text-sm">
+                                ${pref.isImmediate ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Immediate</span>' : ''}
+                                ${pref.isScheduled ? '<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Scheduled</span>' : ''}
+                                ${pref.isCustomTopic ? '<span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Custom</span>' : ''}
                             </div>
-                            <div class="flex gap-2">
-                                <button onclick="editPreference(${pref.id})" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600">
-                                    Edit
-                                </button>
-                                <button onclick="deletePreference(${pref.id})" class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600">
-                                    Delete
-                                </button>
-                            </div>
+                        </div>
+                        <div class="flex gap-2 ml-4">
+                            <button onclick="editPreference(${pref.id}, '${pref.newsTopic.replace(/'/g, "\\'")}', '${pref.deliveryTime}', ${pref.isCustomTopic})" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">✏️</button>
+                            <button onclick="deletePreference(${pref.id}, '${pref.newsTopic.replace(/'/g, "\\'")}' )" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">🗑️</button>
                         </div>
                     </div>
-                `).join('');
+                </div>
+            `).join('');
+        }
 
+        // Create preference
+        async function createPreference(data) {
+            const token = sessionStorage.getItem('token');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/news/preferences`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('✅ Preference saved successfully!');
+                    closeModal();
+                    loadPreferences();
+                } else {
+                    alert('❌ ' + (result.detail || 'Failed to save preference'));
+                }
             } catch (error) {
-                console.error('Error loading preferences:', error);
-                document.getElementById('preferencesList').innerHTML = '<p class="text-red-500 text-center">Error loading preferences</p>';
+                
+                alert('Could not connect to server');
             }
         }
 
-        // Edit preference
-        async function editPreference(preferenceId) {
+        // Update preference
+        async function updatePreference(id, data) {
+            const token = sessionStorage.getItem('token');
+            
             try {
-                const response = await fetch(`${API_BASE_URL}/news-preferences/${currentUser.id}`);
-                const data = await response.json();
-                const pref = data.preferences.find(p => p.id === preferenceId);
+                const response = await fetch(`${API_BASE_URL}/news/preferences/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
 
-                if (!pref) {
-                    alert('Preference not found');
-                    return;
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('✅ Preference updated successfully!');
+                    closeModal();
+                    loadPreferences();
+                } else {
+                    if (response.status === 403) {
+                        alert('❌ You do not have permission to edit this preference');
+                    } else {
+                        alert('❌ ' + (result.detail || 'Failed to update preference'));
+                    }
                 }
-
-                currentEditingId = preferenceId;
-                document.getElementById('modalTitle').textContent = 'Edit Preference';
-                
-                // Set topic
-                const topicBtn = document.querySelector(`.modal-topic-btn[data-topic="${pref.isCustomTopic ? 'other' : pref.newsTopic}"]`);
-                if (topicBtn) topicBtn.click();
-                
-                if (pref.isCustomTopic) {
-                    document.getElementById('modalCustomTopic').value = pref.newsTopic;
-                }
-
-                // Set time
-                const timeBtn = document.querySelector(`.modal-time-btn[data-time="${pref.deliveryTime}"]`);
-                if (timeBtn) timeBtn.click();
-
-                // Show modal
-                document.getElementById('preferenceModal').classList.remove('hidden');
-                document.getElementById('preferenceModal').classList.add('flex');
             } catch (error) {
-                console.error('Error loading preference:', error);
-                alert('Error loading preference');
+                
+                alert('Could not connect to server');
             }
         }
 
         // Delete preference
-        async function deletePreference(preferenceId) {
-            if (!confirm('Are you sure you want to delete this preference?')) return;
+        async function deletePreference(id, name) {
+            if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
 
+            const token = sessionStorage.getItem('token');
+            
             try {
-                const response = await fetch(`${API_BASE_URL}/news-preferences/${preferenceId}`, {
-                    method: 'DELETE'
+                const response = await fetch(`${API_BASE_URL}/news/preferences/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
                 });
 
+                const result = await response.json();
+
                 if (response.ok) {
-                    alert('Preference deleted successfully!');
+                    alert('✅ ' + result.message);
                     loadPreferences();
                 } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.detail || 'Failed to delete'));
+                    if (response.status === 403) {
+                        alert('❌ You do not have permission to delete this preference');
+                    } else {
+                        alert('❌ ' + (result.detail || 'Failed to delete preference'));
+                    }
                 }
             } catch (error) {
-                console.error('Error deleting preference:', error);
-                alert('Error deleting preference');
+                
+                alert('Could not connect to server');
             }
         }
 
-        // Modal controls
-        document.getElementById('addNewBtn').addEventListener('click', () => {
-            currentEditingId = null;
+        // Update settings
+        async function updateSettings(data) {
+            const token = sessionStorage.getItem('token');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/user/setting`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('✅ Settings updated successfully!');
+                    closeSettingsModal();
+                } else {
+                    alert('❌ ' + (result.detail || 'Failed to update settings'));
+                }
+            } catch (error) {
+                
+                alert('Could not connect to server');
+            }
+        }
+
+        // UI Functions
+        function openModal() {
             document.getElementById('modalTitle').textContent = 'Add New Preference';
-            document.getElementById('preferenceForm').reset();
-            document.getElementById('modalSelectedTopic').value = '';
-            document.getElementById('modalSelectedTime').value = '';
+            document.getElementById('editingPreferenceId').value = '';
+            document.getElementById('selectedTopic').value = '';
+            document.getElementById('selectedTime').value = '';
+            document.getElementById('customTopic').value = '';
+            document.querySelectorAll('.topic-btn, .time-btn').forEach(btn => {
+                btn.classList.remove('bg-orange-500', 'text-white', 'border-orange-500');
+                btn.classList.add('border-gray-300', 'text-gray-700');
+            });
             document.getElementById('preferenceModal').classList.remove('hidden');
-            document.getElementById('preferenceModal').classList.add('flex');
-        });
+        }
 
-        document.getElementById('closeModal').addEventListener('click', () => {
+        function editPreference(id, topic, time, isCustom) {
+            document.getElementById('modalTitle').textContent = 'Edit Preference';
+            document.getElementById('editingPreferenceId').value = id;
+            
+            if (isCustom) {
+                document.getElementById('selectedTopic').value = 'other';
+                document.getElementById('customTopic').value = topic;
+                document.getElementById('customTopicContainer').classList.remove('hidden');
+                document.querySelector('[data-topic="other"]').classList.add('bg-orange-500', 'text-white', 'border-orange-500');
+            } else {
+                document.getElementById('selectedTopic').value = topic;
+                const btn = document.querySelector(`[data-topic="${topic}"]`);
+                if (btn) btn.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
+            }
+            
+            document.getElementById('selectedTime').value = time;
+            const timeBtn = document.querySelector(`[data-time="${time}"]`);
+            if (timeBtn) timeBtn.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
+            
+            document.getElementById('preferenceModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
             document.getElementById('preferenceModal').classList.add('hidden');
-            document.getElementById('preferenceModal').classList.remove('flex');
-        });
+        }
 
-        document.getElementById('settingsBtn').addEventListener('click', () => {
+        function openSettingsModal() {
             document.getElementById('settingsModal').classList.remove('hidden');
-            document.getElementById('settingsModal').classList.add('flex');
-        });
+        }
 
-        document.getElementById('closeSettingsModal').addEventListener('click', () => {
+        function closeSettingsModal() {
             document.getElementById('settingsModal').classList.add('hidden');
-            document.getElementById('settingsModal').classList.remove('flex');
-        });
+        }
 
-        // Topic selection in modal
-        document.querySelectorAll('.modal-topic-btn').forEach(btn => {
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.topic-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                document.querySelectorAll('.modal-topic-btn').forEach(b => {
+                document.querySelectorAll('.topic-btn').forEach(b => {
                     b.classList.remove('bg-orange-500', 'text-white', 'border-orange-500');
                     b.classList.add('border-gray-300', 'text-gray-700');
                 });
                 this.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
-                document.getElementById('modalSelectedTopic').value = this.dataset.topic;
-
+                document.getElementById('selectedTopic').value = this.dataset.topic;
+                
                 if (this.dataset.topic === 'other') {
-                    document.getElementById('modalCustomTopicContainer').classList.remove('hidden');
+                    document.getElementById('customTopicContainer').classList.remove('hidden');
                 } else {
-                    document.getElementById('modalCustomTopicContainer').classList.add('hidden');
+                    document.getElementById('customTopicContainer').classList.add('hidden');
                 }
             });
         });
 
-        // Time selection in modal
-        document.querySelectorAll('.modal-time-btn').forEach(btn => {
+        document.querySelectorAll('.time-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                document.querySelectorAll('.modal-time-btn').forEach(b => {
+                document.querySelectorAll('.time-btn').forEach(b => {
                     b.classList.remove('bg-orange-500', 'text-white', 'border-orange-500');
                     b.classList.add('border-gray-300', 'text-gray-700');
                 });
                 this.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
-                document.getElementById('modalSelectedTime').value = this.dataset.time;
+                document.getElementById('selectedTime').value = this.dataset.time;
             });
         });
 
-        // Preference form submission
         document.getElementById('preferenceForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const topic = document.getElementById('modalSelectedTopic').value;
-            const time = document.getElementById('modalSelectedTime').value;
-            const customTopic = document.getElementById('modalCustomTopic').value;
+            const topic = document.getElementById('selectedTopic').value;
+            const time = document.getElementById('selectedTime').value;
+            const customTopic = document.getElementById('customTopic').value;
+            const editingId = document.getElementById('editingPreferenceId').value;
 
             if (!topic || !time) {
                 alert('Please select both topic and delivery time');
                 return;
             }
 
-            const preferenceData = {
+            const data = {
                 newsTopic: topic === 'other' ? customTopic : topic,
                 isCustomTopic: topic === 'other',
                 deliveryTime: time,
@@ -356,83 +444,45 @@
                 isScheduled: time !== 'now'
             };
 
-            try {
-                let response;
-                if (currentEditingId) {
-                    // Update existing
-                    response = await fetch(`${API_BASE_URL}/news-preferences/${currentEditingId}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(preferenceData)
-                    });
-                } else {
-                    // Create new
-                    response = await fetch(`${API_BASE_URL}/news-preferences/${currentUser.id}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(preferenceData)
-                    });
-                }
-
-                if (response.ok) {
-                    alert('Preference saved successfully!');
-                    document.getElementById('preferenceModal').classList.add('hidden');
-                    document.getElementById('preferenceModal').classList.remove('flex');
-                    loadPreferences();
-                } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.detail || 'Failed to save'));
-                }
-            } catch (error) {
-                console.error('Error saving preference:', error);
-                alert('Error saving preference');
+            if (editingId) {
+                await updatePreference(editingId, data);
+            } else {
+                await createPreference(data);
             }
         });
 
-        // Settings form submission
         document.getElementById('settingsForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const settingsData = {};
+            const data = {};
             const country = document.getElementById('settingsCountry').value.trim();
             const city = document.getElementById('settingsCity').value.trim();
             const newsApi = document.getElementById('settingsNewsApiKey').value.trim();
             const weatherApi = document.getElementById('settingsWeatherApiKey').value.trim();
 
-            if (country) settingsData.country = country;
-            if (city) settingsData.city = city;
-            if (newsApi) settingsData.newsApi = newsApi;
-            if (weatherApi) settingsData.weatherApi = weatherApi;
+            if (country) data.country = country;
+            if (city) data.city = city;
+            if (newsApi) data.newsApi = newsApi;
+            if (weatherApi) data.weatherApi = weatherApi;
 
-            if (Object.keys(settingsData).length === 0) {
+            if (Object.keys(data).length === 0) {
                 alert('Please fill in at least one field');
                 return;
             }
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/settings/${currentUser.id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(settingsData)
-                });
-
-                if (response.ok) {
-                    alert('Settings updated successfully!');
-                    document.getElementById('settingsModal').classList.add('hidden');
-                    document.getElementById('settingsModal').classList.remove('flex');
-                } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.detail || 'Failed to update'));
-                }
-            } catch (error) {
-                console.error('Error updating settings:', error);
-                alert('Error updating settings');
-            }
+            await updateSettings(data);
         });
 
-        // Load preferences on page load
-        loadPreferences();
-    </script>
+        document.getElementById('addNewBtn').addEventListener('click', openModal);
+        document.getElementById('settingsBtn').addEventListener('click', openSettingsModal);
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('closeSettingsModal').addEventListener('click', closeSettingsModal);
 
+        // Initialize
+        if (checkAuth()) {
+            loadPreferences();
+        }
+    </script>
 </body>
 </html>
