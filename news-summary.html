@@ -18,23 +18,12 @@
                     <p class="text-sm sm:text-base text-gray-600">Manage your personalized news preferences</p>
                 </div>
                 <div class="flex gap-2 sm:gap-3">
-                    <button 
-                        id="settingsBtn"
-                        class="bg-gray-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg font-semibold hover:bg-gray-700 transition-all flex items-center gap-1 sm:gap-2"
-                    >
-                        ⚙️ Settings
-                    </button>
-                    <button 
-                        id="logoutBtn"
-                        class="bg-red-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg font-semibold hover:bg-red-700 transition-all"
-                    >
-                        Logout
-                    </button>
+                    <button id="settingsBtn" class="bg-gray-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg font-semibold hover:bg-gray-700 transition-all">Settings</button>
+                    <button id="logoutBtn" class="bg-red-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg font-semibold hover:bg-red-700 transition-all">Logout</button>
                 </div>
             </div>
             <div class="flex mt-2 sm:mt-3 gap-2 text-sm sm:text-base">
-                <p class="text-gray font-semibold">Check your inbox at</p>
-                <a href="https://mail.google.com/mail" target="_blank" class="text-blue-900 font-bold underline">Gmail.com</a>
+                <p class="text-gray underline">Articles will be sent at your email address.</p>
             </div>
         </div>
 
@@ -42,33 +31,23 @@
         <div class="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 mb-4 sm:mb-6">
             <div class="flex items-center justify-between mb-3 sm:mb-4">
                 <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Your News Preferences</h2>
-                <button 
-                    id="addNewBtn"
-                    class="bg-green-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg font-semibold hover:bg-green-700 transition-all flex items-center gap-1 sm:gap-2"
-                >
-                    ➕ Add New
-                </button>
+                <button id="addNewBtn" class="bg-green-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg font-semibold hover:bg-green-700 transition-all">Add New</button>
             </div>
-
             <div id="preferencesList" class="space-y-4">
                 <p class="text-gray-500 text-center py-8">Loading your preferences...</p>
             </div>
         </div>
-
     </div>
 
-    <!-- Add/Edit Modal -->
+    <!-- Add/Edit Preference Modal -->
     <div id="preferenceModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3 sm:p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-8">
             <div class="flex justify-between items-center mb-4 sm:mb-6">
                 <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold text-gray-800">Add New Preference</h2>
                 <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">×</button>
             </div>
-
             <form id="preferenceForm" class="space-y-4 sm:space-y-6">
                 <input type="hidden" id="editingPreferenceId">
-
-                <!-- News Topic -->
                 <div>
                     <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3">News Topic</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -86,12 +65,10 @@
                         <input type="text" id="customTopic" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none" placeholder="Enter custom topic">
                     </div>
                 </div>
-
-                <!-- Delivery Time -->
                 <div>
                     <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3">Delivery Time</h3>
                     <div class="space-y-2 sm:space-y-3">
-                        <button type="button" class="time-btn w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all text-left" data-time="now">⚡ Send Now</button>
+                        <button type="button" class="time-btn w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all text-left" data-time="now">Send Now</button>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
                             <button type="button" class="time-btn px-2 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="11:00 AM">11:00 AM</button>
                             <button type="button" class="time-btn px-2 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-orange-500 hover:bg-orange-50 transition-all" data-time="02:00 PM">02:00 PM</button>
@@ -103,10 +80,7 @@
                     </div>
                     <input type="hidden" id="selectedTime" required>
                 </div>
-
-                <button type="submit" class="w-full bg-orange-600 text-white py-2.5 sm:py-3 text-sm sm:text-base rounded-lg font-semibold hover:bg-orange-700 transition-all">
-                    Save Preference
-                </button>
+                <button type="submit" class="w-full bg-orange-600 text-white py-2.5 sm:py-3 text-sm sm:text-base rounded-lg font-semibold hover:bg-orange-700 transition-all">Save Preference</button>
             </form>
         </div>
     </div>
@@ -118,58 +92,44 @@
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Account Settings</h2>
                 <button id="closeSettingsModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">×</button>
             </div>
-
             <form id="settingsForm" class="space-y-3 sm:space-y-4">
                 <div>
                     <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Country</label>
-                    <input type="text" id="settingsCountry" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
+                    <select id="settingsCountry" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
+                        <option value="">Loading countries...</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">City</label>
-                    <input type="text" id="settingsCity" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
+                    <select id="settingsCity" disabled class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+                        <option value="">Select a country first...</option>
+                    </select>
                 </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">News API Key</label>
-                    <input type="text" id="settingsNewsApiKey" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none font-mono">
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Weather API Key</label>
-                    <input type="text" id="settingsWeatherApiKey" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none font-mono">
-                </div>
-                <button type="submit" class="w-full bg-orange-600 text-white py-2.5 sm:py-3 text-sm sm:text-base rounded-lg font-semibold hover:bg-orange-700 transition-all">
-                    Update Settings
-                </button>
+                <input type="hidden" id="settingsTimezone">
+                <input type="hidden" id="settingsCountryName">
+                <button type="submit" class="w-full bg-orange-600 text-white py-2.5 sm:py-3 text-sm sm:text-base rounded-lg font-semibold hover:bg-orange-700 transition-all">Update Settings</button>
             </form>
         </div>
     </div>
 
     <script src="config.js"></script>
     <script>
-        // Check if user is logged in
         function checkAuth() {
             const token = sessionStorage.getItem('token');
-            if (!token) {
-                alert('Please login first');
-                window.location.href = 'index.html';
-                return false;
-            }
+            if (!token) { alert('Please login first'); window.location.href = 'index.html'; return false; }
             return true;
         }
 
-        // Load all preferences
+        // ============================================
+        // PREFERENCES
+        // ============================================
         async function loadPreferences() {
             const token = sessionStorage.getItem('token');
-            
             try {
                 const response = await fetch(`${API_BASE_URL}/news/preferences`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
-
                 const result = await response.json();
-
                 if (response.ok) {
                     displayPreferences(result.preferences || []);
                 } else {
@@ -181,21 +141,15 @@
                         alert(result.detail || 'Failed to load preferences');
                     }
                 }
-            } catch (error) {
-                
-                alert('Could not connect to server');
-            }
+            } catch (error) { alert('Could not connect to server'); }
         }
 
-        // Display preferences
         function displayPreferences(preferences) {
             const container = document.getElementById('preferencesList');
-            
             if (preferences.length === 0) {
                 container.innerHTML = '<div class="text-center py-12 text-gray-500"><p class="text-lg">No preferences found</p><p class="text-sm mt-2">Click "Add New" to create your first preference</p></div>';
                 return;
             }
-
             container.innerHTML = preferences.map(pref => `
                 <div class="border border-gray-200 rounded-lg p-4 sm:p-6 hover:shadow-lg transition-shadow">
                     <div class="flex items-start justify-between gap-3">
@@ -203,143 +157,161 @@
                             <h3 class="text-base sm:text-xl font-semibold text-gray-800 mb-1 sm:mb-2">📰 ${pref.newsTopic}</h3>
                             <p class="text-sm sm:text-base text-gray-600 mb-2">🕐 Delivery: ${pref.deliveryTime}</p>
                             <div class="flex flex-wrap gap-1 sm:gap-2 text-xs sm:text-sm">
-                                ${pref.isImmediate ? '<span class="bg-green-100 text-green-800 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">Immediate</span>' : ''}
+                                ${pref.isImmediate ? '<span class="bg-green-100 text-green-800 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">Sending email...</span>' : ''}
                                 ${pref.isScheduled ? '<span class="bg-blue-100 text-blue-800 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">Scheduled</span>' : ''}
                                 ${pref.isCustomTopic ? '<span class="bg-purple-100 text-purple-800 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">Custom</span>' : ''}
                             </div>
                         </div>
                         <div class="flex gap-1 sm:gap-2 flex-shrink-0">
-                            <button onclick="editPreference(${pref.id}, '${pref.newsTopic.replace(/'/g, "\\'")}', '${pref.deliveryTime}', ${pref.isCustomTopic})" class="bg-blue-500 text-white px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg hover:bg-blue-600 transition">✏️</button>
-                            <button onclick="deletePreference(${pref.id}, '${pref.newsTopic.replace(/'/g, "\\'")}' )" class="bg-red-500 text-white px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg hover:bg-red-600 transition">🗑️</button>
+                            <button onclick="editPreference(${pref.id}, '${pref.newsTopic.replace(/'/g, "\\'")}', '${pref.deliveryTime}', ${pref.isCustomTopic})" class="bg-blue-500 text-white px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg hover:bg-blue-600 transition">Edit</button>
+                            <button onclick="deletePreference(${pref.id}, '${pref.newsTopic.replace(/'/g, "\\'")}' )" class="bg-red-500 text-white px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg hover:bg-red-600 transition">Delete</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Create preference
         async function createPreference(data) {
             const token = sessionStorage.getItem('token');
-            
             try {
                 const response = await fetch(`${API_BASE_URL}/news/preferences`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify(data)
                 });
-
                 const result = await response.json();
-
-                if (response.ok) {
-                    alert('✅ Preference saved successfully!');
-                    closeModal();
-                    loadPreferences();
-                } else {
-                    alert('❌ ' + (result.detail || 'Failed to save preference'));
-                }
-            } catch (error) {
-                
-                alert('Could not connect to server');
-            }
+                if (response.ok) { alert('Preference saved!'); closeModal(); loadPreferences(); }
+                else { alert(result.detail || 'Failed to save preference'); }
+            } catch (error) { alert('Could not connect to server'); }
         }
 
-        // Update preference
         async function updatePreference(id, data) {
             const token = sessionStorage.getItem('token');
-            
             try {
                 const response = await fetch(`${API_BASE_URL}/news/preferences/${id}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify(data)
                 });
-
                 const result = await response.json();
-
-                if (response.ok) {
-                    alert('✅ Preference updated successfully!');
-                    closeModal();
-                    loadPreferences();
-                } else {
-                    if (response.status === 403) {
-                        alert('❌ You do not have permission to edit this preference');
-                    } else {
-                        alert('❌ ' + (result.detail || 'Failed to update preference'));
-                    }
-                }
-            } catch (error) {
-                
-                alert('Could not connect to server');
-            }
+                if (response.ok) { alert('Preference updated!'); closeModal(); loadPreferences(); }
+                else { alert(result.detail || 'Failed to update preference'); }
+            } catch (error) { alert('Could not connect to server'); }
         }
 
-        // Delete preference
         async function deletePreference(id, name) {
             if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
-
             const token = sessionStorage.getItem('token');
-            
             try {
                 const response = await fetch(`${API_BASE_URL}/news/preferences/${id}`, {
                     method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
-
                 const result = await response.json();
+                if (response.ok) { alert(result.message); loadPreferences(); }
+                else { alert(result.detail || 'Failed to delete preference'); }
+            } catch (error) { alert('Could not connect to server'); }
+        }
 
-                if (response.ok) {
-                    alert('✅ ' + result.message);
-                    loadPreferences();
-                } else {
-                    if (response.status === 403) {
-                        alert('❌ You do not have permission to delete this preference');
-                    } else {
-                        alert('❌ ' + (result.detail || 'Failed to delete preference'));
-                    }
-                }
-            } catch (error) {
-                
-                alert('Could not connect to server');
+        // ============================================
+        // SETTINGS — REST API dropdowns
+        // ============================================
+        const settingsCountrySelect = document.getElementById('settingsCountry')
+        const settingsCitySelect = document.getElementById('settingsCity')
+        const settingsTimezoneInput = document.getElementById('settingsTimezone')
+        const settingsCountryNameInput = document.getElementById('settingsCountryName')
+
+        async function loadCountriesIntoSelect() {
+            try {
+                const res = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2,timezones')
+                const countries = await res.json()
+                countries.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                settingsCountrySelect.innerHTML = '<option value="">Select a country...</option>'
+                countries.forEach(country => {
+                    const option = document.createElement('option')
+                    option.value = country.cca2
+                    option.textContent = country.name.common
+                    option.dataset.name = country.name.common
+                    option.dataset.timezone = TIMEZONE_MAP[country.cca2] || 'UTC'
+                    settingsCountrySelect.appendChild(option)
+                })
+            } catch (err) {
+                settingsCountrySelect.innerHTML = '<option value="">Failed to load countries</option>'
             }
         }
 
-        // Update settings
+        async function loadCitiesIntoSelect(countryName) {
+            settingsCitySelect.innerHTML = '<option value="">Loading cities...</option>'
+            settingsCitySelect.disabled = true
+            try {
+                const res = await fetch('https://countriesnow.space/api/v0.1/countries/cities', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ country: countryName })
+                })
+                const data = await res.json()
+                settingsCitySelect.innerHTML = '<option value="">Select a city...</option>'
+                if (data.data && data.data.length > 0) {
+                    data.data.sort().forEach(cityName => {
+                        const option = document.createElement('option')
+                        option.value = cityName
+                        option.textContent = cityName
+                        settingsCitySelect.appendChild(option)
+                    })
+                    settingsCitySelect.disabled = false
+                }
+            } catch (err) {
+                settingsCitySelect.innerHTML = '<option value="">Failed to load cities</option>'
+            }
+        }
+
+        settingsCountrySelect.addEventListener('change', async () => {
+            const selectedOption = settingsCountrySelect.selectedOptions[0]
+            settingsTimezoneInput.value = selectedOption?.dataset?.timezone || 'UTC'
+            settingsCountryNameInput.value = selectedOption?.dataset?.name || ''
+            if (settingsCountrySelect.value) {
+                await loadCitiesIntoSelect(selectedOption.dataset.name)
+            } else {
+                settingsCitySelect.innerHTML = '<option value="">Select a country first...</option>'
+                settingsCitySelect.disabled = true
+            }
+        })
+
+        async function loadCurrentSettings() {
+            const token = sessionStorage.getItem('token');
+            try {
+                const response = await fetch(`${API_BASE_URL}/user/location`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!response.ok) return;
+                const result = await response.json();
+                if (result.country_code) {
+                    settingsCountrySelect.value = result.country_code
+                    settingsTimezoneInput.value = result.timezone || 'UTC'
+                    settingsCountryNameInput.value = result.country_name || ''
+                    await loadCitiesIntoSelect(result.country_name)
+                    if (result.city) settingsCitySelect.value = result.city
+                }
+            } catch (error) { /* silently fail */ }
+        }
+
         async function updateSettings(data) {
             const token = sessionStorage.getItem('token');
-            
             try {
-                const response = await fetch(`${API_BASE_URL}/user/setting`, {
+                const response = await fetch(`${API_BASE_URL}/user/location`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify(data)
                 });
-
                 const result = await response.json();
-
-                if (response.ok) {
-                    alert('✅ Settings updated successfully!');
-                    closeSettingsModal();
-                } else {
-                    alert('❌ ' + (result.detail || 'Failed to update settings'));
-                }
-            } catch (error) {
-                
-                alert('Could not connect to server');
-            }
+                if (response.ok) { alert('Settings updated successfully!'); closeSettingsModal(); }
+                else { alert(result.detail || 'Failed to update settings'); }
+            } catch (error) { alert('Could not connect to server'); }
         }
 
-        // UI Functions
+        // ============================================
+        // MODAL HELPERS
+        // ============================================
         function openModal() {
             document.getElementById('modalTitle').textContent = 'Add New Preference';
             document.getElementById('editingPreferenceId').value = '';
@@ -356,7 +328,6 @@
         function editPreference(id, topic, time, isCustom) {
             document.getElementById('modalTitle').textContent = 'Edit Preference';
             document.getElementById('editingPreferenceId').value = id;
-            
             if (isCustom) {
                 document.getElementById('selectedTopic').value = 'other';
                 document.getElementById('customTopic').value = topic;
@@ -367,25 +338,20 @@
                 const btn = document.querySelector(`[data-topic="${topic}"]`);
                 if (btn) btn.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
             }
-            
             document.getElementById('selectedTime').value = time;
             const timeBtn = document.querySelector(`[data-time="${time}"]`);
             if (timeBtn) timeBtn.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
-            
             document.getElementById('preferenceModal').classList.remove('hidden');
         }
 
-        function closeModal() {
-            document.getElementById('preferenceModal').classList.add('hidden');
-        }
+        function closeModal() { document.getElementById('preferenceModal').classList.add('hidden'); }
 
         function openSettingsModal() {
             document.getElementById('settingsModal').classList.remove('hidden');
+            loadCurrentSettings();
         }
 
-        function closeSettingsModal() {
-            document.getElementById('settingsModal').classList.add('hidden');
-        }
+        function closeSettingsModal() { document.getElementById('settingsModal').classList.add('hidden'); }
 
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
@@ -394,7 +360,9 @@
             }
         }
 
-        // Event Listeners
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
         document.querySelectorAll('.topic-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.topic-btn').forEach(b => {
@@ -403,7 +371,6 @@
                 });
                 this.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
                 document.getElementById('selectedTopic').value = this.dataset.topic;
-                
                 if (this.dataset.topic === 'other') {
                     document.getElementById('customTopicContainer').classList.remove('hidden');
                 } else {
@@ -425,17 +392,11 @@
 
         document.getElementById('preferenceForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
             const topic = document.getElementById('selectedTopic').value;
             const time = document.getElementById('selectedTime').value;
             const customTopic = document.getElementById('customTopic').value;
             const editingId = document.getElementById('editingPreferenceId').value;
-
-            if (!topic || !time) {
-                alert('Please select both topic and delivery time');
-                return;
-            }
-
+            if (!topic || !time) { alert('Please select both topic and delivery time'); return; }
             const data = {
                 newsTopic: topic === 'other' ? customTopic : topic,
                 isCustomTopic: topic === 'other',
@@ -443,33 +404,20 @@
                 isImmediate: time === 'now',
                 isScheduled: time !== 'now'
             };
-
-            if (editingId) {
-                await updatePreference(editingId, data);
-            } else {
-                await createPreference(data);
-            }
+            if (editingId) { await updatePreference(editingId, data); }
+            else { await createPreference(data); }
         });
 
         document.getElementById('settingsForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            const data = {};
-            const country = document.getElementById('settingsCountry').value.trim();
-            const city = document.getElementById('settingsCity').value.trim();
-            const newsApi = document.getElementById('settingsNewsApiKey').value.trim();
-            const weatherApi = document.getElementById('settingsWeatherApiKey').value.trim();
-
-            if (country) data.country = country;
-            if (city) data.city = city;
-            if (newsApi) data.newsApi = newsApi;
-            if (weatherApi) data.weatherApi = weatherApi;
-
-            if (Object.keys(data).length === 0) {
-                alert('Please fill in at least one field');
-                return;
-            }
-
+            if (!settingsCountrySelect.value) { alert('Please select a country'); return; }
+            if (!settingsCitySelect.value) { alert('Please select a city'); return; }
+            const data = {
+                country_code: settingsCountrySelect.value,
+                country_name: settingsCountryNameInput.value,
+                city: settingsCitySelect.value,
+                timezone: settingsTimezoneInput.value || 'UTC'
+            };
             await updateSettings(data);
         });
 
@@ -479,9 +427,12 @@
         document.getElementById('closeModal').addEventListener('click', closeModal);
         document.getElementById('closeSettingsModal').addEventListener('click', closeSettingsModal);
 
-        // Initialize
+        // ============================================
+        // INIT
+        // ============================================
         if (checkAuth()) {
             loadPreferences();
+            loadCountriesIntoSelect(); // preload so modal is ready instantly
         }
     </script>
 </body>

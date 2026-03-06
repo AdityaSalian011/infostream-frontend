@@ -121,6 +121,10 @@
                 >
             </div>
 
+            <div class="text-center">
+                <a href="forgot_password.html" class="text-blue-500 underline">Forgot Password?</a>
+            </div>
+
             <!-- Login Submit Button -->
             <button 
                 type="submit" 
@@ -174,12 +178,13 @@
                     // Show success message
                     alert('Account created successfully!');
 
-                    // Redirect to user settings page
-                    window.location.href = 'user-settings.html'
+                    // Redirect to user location page
+                    window.location.href = 'user-location.html'
                 }else{
                     // Handle error (e.g., email already exists)
                     
-                    alert(result.detail || 'Signup failed. Please try again.');
+                    const msg = result.detail?.[0]?.msg?.replace('Value error, ', '') || result.detail || 'Signup failed. Please try again!'
+                    alert(msg)
                 }
     
             } catch (error){
@@ -231,7 +236,8 @@
                 }else {
                     // Handle error (e.g., wrong password)
                     
-                    alert(result.detail || 'Invalid email or password');
+                    const msg = result.detail?.[0]?.msg?.replace('Value error, ', '') || result.detail || 'Signup failed. Please try again!'
+                    alert(msg)
                 }
 
             } catch (error) {
