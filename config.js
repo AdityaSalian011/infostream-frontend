@@ -1,14 +1,3 @@
-// API Configuration
-const API_CONFIG = {
-    // Production backend URL (Railway)
-    // BASE_URL: "https://infostream-backend-production.up.railway.app",
-    
-    // Local development (comment out for production)
-    BASE_URL: "http://localhost:8000"
-
-    // Add this map at the top of your script
-};
-
 const TIMEZONE_MAP = {
     'AF': 'Asia/Kabul', 'AL': 'Europe/Tirane', 'DZ': 'Africa/Algiers',
     'AR': 'America/Argentina/Buenos_Aires', 'AM': 'Asia/Yerevan',
@@ -49,4 +38,9 @@ const TIMEZONE_MAP = {
 }
 
 // Export for use in other files
-const API_BASE_URL = API_CONFIG.BASE_URL;
+// const API_BASE_URL: "https://infostream-backend-production.up.railway.app"
+const API_BASE_URL = 'http://localhost:8000';
+
+const GEO_USER = 'Aditya_Salian'
+const MIN_CITY_POPULATION = 100000
+const GEO_BASE_URL = 'https://secure.geonames.org'
