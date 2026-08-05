@@ -39,7 +39,7 @@ const TIMEZONE_MAP = {
 
 // Export for use in other files
 // const API_BASE_URL = "https://infostream-backend.up.railway.app"
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'http://localhost:8000'
 
 const GEO_USER = 'Aditya_Salian'
 const MIN_CITY_POPULATION = 100000
